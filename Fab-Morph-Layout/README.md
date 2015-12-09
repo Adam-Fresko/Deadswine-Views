@@ -1,6 +1,8 @@
 # Fab-Morph-Layout
 Example of compound view, you can read more [here](http://deadswine.com/uncategorized/android-custom-view-02-compound-view/).
 
+Currently suporting API 16 with diffrent animations than in lolipop and above
+
 [![VIDEO - CLICK ME](http://deadswine.com/wp-content/uploads/2015/12/DeadswineViews-FAB-Morph.mp4)](http://deadswine.com/wp-content/uploads/2015/12/DeadswineViews-FAB-Morph.mp4)
 
 
