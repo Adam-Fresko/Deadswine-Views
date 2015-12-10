@@ -5,7 +5,48 @@ Currently suporting API 16 with diffrent animations than in lolipop and above
 
 [![VIDEO - CLICK ME](http://deadswine.com/wp-content/uploads/2015/12/DeadswineViews-FAB-Morph.mp4)](http://deadswine.com/wp-content/uploads/2015/12/DeadswineViews-FAB-Morph.mp4)
 
+### How to use
 
+In xml pass any layout containing fab and with id=fab and any view with id=morphTarget
+
+
+```xml
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="32dp"
+        android:layout_marginRight="16dp"
+        app:fabSize="normal"
+        />
+
+    <LinearLayout
+        android:id="@+id/morphTarget"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom"
+        android:background="?attr/colorAccent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="visible">
+        
+        <!-- Add any views you want here-->
+        
+    </LinearLayout>
+</FrameLayout>
+```
+
+Use getTargetView() with casting in orther to acces your target view
+
+```java
+ LinearLayout myTargetLayout = (LinearLayout) mDeadswineFabMorphLayout.getTargetView();
+```
 ### License
 
 
