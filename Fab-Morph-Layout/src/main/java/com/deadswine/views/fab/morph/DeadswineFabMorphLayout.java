@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 
 /**
@@ -494,15 +495,12 @@ public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClick
 
     }
 
-
     @Override
     public void onClick(View v) {
         log("FAB ON CLICK");
 
         toggle();
     }
-
-
 
     Runnable animationRunnable = new Runnable() {
         @Override
@@ -563,6 +561,19 @@ public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClick
         }
     };
 
+
+    public FloatingActionButton getFab(){
+
+        return  fab;
+    }
+
+    public View getTargetView(){
+
+        return vTarget;
+    }
+
+
+    LinearLayout myTargetLayout = (LinearLayout) getTargetView();
 
 }
 
