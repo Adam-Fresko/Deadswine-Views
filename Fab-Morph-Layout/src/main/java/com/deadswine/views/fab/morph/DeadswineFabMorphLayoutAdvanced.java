@@ -9,9 +9,11 @@ import android.content.res.TypedArray;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.PointF;
+import android.graphics.drawable.TransitionDrawable;
+import android.os.Build;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.transition.Transition;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -20,7 +22,8 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 
 /**
@@ -29,14 +32,13 @@ import android.widget.LinearLayout;
  * <br>
  * This is and exemaple of compound view
  */
-public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClickListener {
+public class DeadswineFabMorphLayoutAdvanced extends FrameLayout implements View.OnClickListener {
     private final String TAG = this.getClass().getSimpleName();
     boolean isDebug = true;
 
     public void log(String log) {
         Log.d(TAG, log);
     }
-
 
 
     boolean isExpanded;
@@ -64,12 +66,27 @@ public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClick
 
     int resourceId; // variable storing layout passed in xml
 
+    DeadswineFabMorphInterface mInterface;
+
+    public void setInterface(DeadswineFabMorphInterface mInterface) {
+        this.mInterface = mInterface;
+    }
+
+    public interface DeadswineFabMorphInterface {
+
+        public void onDeadswineMorphInitialized();
+
+
+    }
+
+
     /**
      * Constructor allowing for reading custom xml attributes
+     *
      * @param context
      * @param attrs
      */
-    public DeadswineFabMorphLayout(Context context, AttributeSet attrs) {
+    public DeadswineFabMorphLayoutAdvanced(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.DeadswineViews, 0, 0);
@@ -84,13 +101,14 @@ public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClick
     }
 
 
-    FloatingActionButton fab;
+    ImageButton fab;
     View vTarget;
+
     private void inflate() {
         //  View view = LayoutInflater.from(getContext()).inflate(R.layout.fab_morph_layout, this, true);
         View view = LayoutInflater.from(getContext()).inflate(resourceId, this, true);
 
-        fab = (FloatingActionButton) view.findViewById(R.id.fab); // your fab needs to have this id
+        fab = (ImageButton) view.findViewById(R.id.fab); // your fab needs to have this id
         vTarget = view.findViewById(R.id.morphTarget);  // your target view needs to have this id
         vTarget.setVisibility(INVISIBLE);
         vTarget.post(new Runnable() { // this runnable will be run after views has been set allowing us to properly calculate animations
@@ -101,6 +119,8 @@ public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClick
         });
 
     }
+    TransitionDrawable transition;
+    Transition  transitionBackground;
 
     private void init() {
         interpolator = new FastOutSlowInInterpolator();
@@ -109,10 +129,18 @@ public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClick
         isExpanded = false; // control boolean variables
         isInProgress = false;
 
+        RelativeLayout tmp = (RelativeLayout) vTarget;
+
+        LayoutParams lp = (LayoutParams) tmp.getLayoutParams();
+
+        int i = lp.leftMargin;
+        int i2 = lp.bottomMargin;
+        tmp = null;
+        lp = null;
 
         // store center of target
-        target = new PointF(vTarget.getX() + ((vTarget.getWidth() / 2) - (fab.getWidth() / 2)),
-                (vTarget.getY() + (vTarget.getHeight() / 2)) - (fab.getHeight() / 2));
+        target = new PointF(vTarget.getX() + i + ((((vTarget.getWidth()-(i*2)) / 2)) - (fab.getWidth() / 2)),
+                (vTarget.getY() -i2+ (vTarget.getHeight() / 2)) - (fab.getHeight() / 2));
 
 
         origin = new PointF(fab.getX(), fab.getY()); // store center of fab
@@ -136,8 +164,26 @@ public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClick
 
         pathMeasureBackward = new PathMeasure(pathBackward, false);
 
+ //   fab.setBackgroundResource(R.drawable.fab_transition_drawable);
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            fab.setBackground(, getContext().getTheme()));
+//        } else {
+//            fab.setBackground(getResources().getDrawable(R.drawable.fab_transition_drawable));
+//        }
+
+
+      transition = (TransitionDrawable) getResources().getDrawable(R.drawable.fab_transition_drawable);
+
+              fab.setBackground(transition);
+
+
         fab.setOnClickListener(this);
-        // vTarget.setOnClickListener(this);
+
+        if (mInterface != null) {
+            mInterface.onDeadswineMorphInitialized();
+        }
+
     }
 
     @Override
@@ -171,8 +217,8 @@ public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClick
 
         isInProgress = true;
 
-        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-        if (currentapiVersion >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+        int currentapiVersion = Build.VERSION.SDK_INT;
+        if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP) {
 
             forwardLolipop();
         } else {
@@ -216,8 +262,8 @@ public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClick
 
         isInProgress = true;
 
-        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-        if (currentapiVersion >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+        int currentapiVersion = Build.VERSION.SDK_INT;
+        if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP) {
             colapseTargetLolipop();
         } else {
             collapseTargetOld();
@@ -231,6 +277,7 @@ public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClick
         vTarget.animate().scaleX(0).scaleY(0).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
+                fab.clearAnimation();
                 fab.setScaleX(0);
                 fab.setScaleY(0);
                 fab.animate().scaleX(1).scaleY(1).start();
@@ -302,6 +349,29 @@ public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClick
                 @Override
                 public void onAnimationStart(Animator animation) {
 
+                    transition.startTransition(animDuration);
+
+                    fab.animate().scaleY(0.7f).scaleX(0.7f).setListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            fab.setImageDrawable(null);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+
+                        }
+                    }).start();
                 }
 
                 @Override
@@ -398,13 +468,18 @@ public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClick
 
         if (arcAnimRewerse == null) {
 
+
+
+
+
             arcAnimRewerse = ObjectAnimator.ofFloat(fab, View.X, View.Y, pathForward);
             arcAnimRewerse.setInterpolator(interpolator);
             arcAnimRewerse.setDuration(animDuration);
             arcAnimRewerse.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
-
+                fab.animate().scaleX(1f).scaleY(1f).start();
+                    transition.reverseTransition(animDuration);
                 }
 
                 @Override
@@ -414,6 +489,9 @@ public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClick
 
                         isExpanded = false;
                         vTarget.setVisibility(INVISIBLE);
+                        fab.clearAnimation();
+                        fab.setImageResource(R.drawable.ic_search_24dp);
+
                     } else {
                         isExpanded = true;
 
@@ -562,18 +640,20 @@ public class DeadswineFabMorphLayout extends FrameLayout implements View.OnClick
     };
 
 
-    public FloatingActionButton getFab(){
+    public ImageButton getFab() {
 
-        return  fab;
+        return fab;
     }
 
-    public View getTargetView(){
+    public View getTargetView() {
 
         return vTarget;
     }
 
 
-    LinearLayout myTargetLayout = (LinearLayout) getTargetView();
+    //   LinearLayout myTargetLayout = (LinearLayout) getTargetView();
 
 }
+
+
 

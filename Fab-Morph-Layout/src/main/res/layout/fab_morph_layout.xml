@@ -11,10 +11,7 @@
         android:layout_gravity="right|bottom"
         android:layout_marginBottom="32dp"
         android:layout_marginRight="16dp"
-
-        android:translationZ="20dp"
         app:fabSize="normal"
-
         />
 
 
@@ -26,12 +23,9 @@
         android:background="?attr/colorAccent"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:translationZ="20dp"
         android:visibility="visible">
 
-
         <!-- Add any views you want here-->
-
 
 
     </LinearLayout>
