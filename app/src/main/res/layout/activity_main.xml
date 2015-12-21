@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    tools:context="com.deadswine.views.MainActivity">
-
-
-
-    <com.deadswine.views.fab.morph.DeadswineFabMorphLayout
+    <Button
+        android:id="@+id/btnFabMorph"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutResource="@layout/fab_morph_layout"
+        android:layout_height="48dp"
+        android:text="Fab-Morph-Sample"
+        />
 
-    />
+    <Button
+        android:id="@+id/btnFabMorphGeocoder"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Fab-Morph-GEOCODER-Sample"
+        />
 
-</RelativeLayout>
+
+</LinearLayout>
