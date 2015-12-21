@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GeocoderAddressView</string>
+    <string name="place_details">place_details</string>
+</resources>
