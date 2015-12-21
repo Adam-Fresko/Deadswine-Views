@@ -1,2 +1,2 @@
-include ':app', ':Fab-Morph-Layout'
+include ':app', ':Fab-Morph-Layout', ':GeocoderAddressView'
 

@@ -11,6 +11,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Fab-Morph-Layout" />
+            <option value="$PROJECT_DIR$/GeocoderAddressView" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
