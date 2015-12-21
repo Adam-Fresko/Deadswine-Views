@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/morphTarget"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:layout_gravity="bottom"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:background="@drawable/drawable_rounded_corners"
+    android:elevation="12dp"
+    android:gravity="center_vertical"
+    >
+
+
+    <AutoCompleteTextView
+        android:id="@+id/address_autocomplete"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@android:color/transparent"
+
+        android:hint="Search address or place"
+        android:paddingRight="48dp"
+        android:paddingLeft="48dp"
+
+        android:dropDownHeight="150dp"
+        android:dropDownAnchor="@id/morphTarget"
+        android:dropDownVerticalOffset="1dp"
+        android:popupBackground="@android:color/transparent"
+        />
+
+    <!--
+       android:popupBackground="@android:color/transparent"
+
+     android:layout_toEndOf="@+id/address_back_arrow"
+        android:layout_toStartOf="@+id/address_voice" -->
+
+    <ImageView
+        android:id="@+id/address_back_arrow"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_keyboard_backspace_black_24dp"
+        android:tint="#616161" />
+
+
+    <ImageView
+        android:id="@+id/address_voice"
+
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+
+
+        android:scaleType="center"
+        android:src="@drawable/ic_keyboard_voice_black_24dp"
+        android:tint="#616161" />
+
+
+</RelativeLayout>
