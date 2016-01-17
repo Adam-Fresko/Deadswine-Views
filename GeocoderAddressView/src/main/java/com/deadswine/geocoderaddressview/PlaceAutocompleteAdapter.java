@@ -1,5 +1,6 @@
 package com.deadswine.geocoderaddressview;
 
+import com.deadswine.geocoder.address.view.R;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.Status;

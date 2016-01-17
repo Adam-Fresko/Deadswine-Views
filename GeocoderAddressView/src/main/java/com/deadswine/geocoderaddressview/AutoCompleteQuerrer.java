@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.AutoCompleteTextView;
 
 
+import com.deadswine.geocoder.address.view.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
