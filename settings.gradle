@@ -1,2 +1,2 @@
-include ':app', ':Fab-Morph-Layout', ':GeocoderAddressView'
+include ':AppSamples', ':Fab-Morph-Layout', ':GeocoderAddressView', ':DeadswinesSlidingPanel'
 

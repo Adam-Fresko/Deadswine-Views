@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AppSamples/AppSamples.iml" filepath="$PROJECT_DIR$/AppSamples/AppSamples.iml" />
       <module fileurl="file://$PROJECT_DIR$/DeadswineViews.iml" filepath="$PROJECT_DIR$/DeadswineViews.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DeadswinesSlidingPanel/DeadswinesSlidingPanel.iml" filepath="$PROJECT_DIR$/DeadswinesSlidingPanel/DeadswinesSlidingPanel.iml" />
       <module fileurl="file://$PROJECT_DIR$/Fab-Morph-Layout/Fab-Morph-Layout.iml" filepath="$PROJECT_DIR$/Fab-Morph-Layout/Fab-Morph-Layout.iml" />
       <module fileurl="file://$PROJECT_DIR$/GeocoderAddressView/GeocoderAddressView.iml" filepath="$PROJECT_DIR$/GeocoderAddressView/GeocoderAddressView.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>

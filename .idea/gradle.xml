@@ -10,9 +10,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/AppSamples" />
+            <option value="$PROJECT_DIR$/DeadswinesSlidingPanel" />
             <option value="$PROJECT_DIR$/Fab-Morph-Layout" />
             <option value="$PROJECT_DIR$/GeocoderAddressView" />
-            <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
       </GradleProjectSettings>
