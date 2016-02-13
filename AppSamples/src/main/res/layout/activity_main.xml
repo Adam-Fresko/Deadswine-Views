@@ -18,4 +18,12 @@
         />
 
 
+    <Button
+        android:id="@+id/btnSlidingPanel"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Sliding Panel SAMPLE"
+        />
+
+
 </LinearLayout>

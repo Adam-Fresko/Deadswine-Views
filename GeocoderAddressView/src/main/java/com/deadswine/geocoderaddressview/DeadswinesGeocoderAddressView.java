@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.deadswine.geocoder.address.view.R;
+import com.google.android.gms.location.places.Place;
 
 
 /**
@@ -22,16 +22,38 @@ import com.deadswine.geocoder.address.view.R;
  * Deadswine.com
  */
 
-public class DeadswinesGeocoderAddressView extends FrameLayout implements AutoCompleteTextView.OnDismissListener, View.OnFocusChangeListener, TextWatcher, View.OnClickListener {
+public class DeadswinesGeocoderAddressView extends FrameLayout implements AutoCompleteTextView.OnDismissListener, View.OnFocusChangeListener, TextWatcher, View.OnClickListener, AutoCompleteQuerrer.AutoCompleteQuerrerInterface {
     private final String TAG = this.getClass().getSimpleName();
     boolean isDebug = true;
 
     public void log(String log) {
         Log.d(TAG, log);
     }
-//
+
+
+    boolean isTextEntered;
+    boolean isVoiceInputInProgress;
 
     int resourceId;
+    View viewBase;
+    ImageView viewBackArrow;
+    ImageView viewVoiceInput;
+    AutoCompleteTextView viewAutoComplete;
+
+    AutoCompleteQuerrer mAutoCompleteQuerrer;
+
+    DeadswinesGeocoderAddressViewInterface mInterface;
+
+
+    public interface DeadswinesGeocoderAddressViewInterface {
+
+        void onPlaceFetcht(Place place);
+
+    }
+
+    public void setInterface(DeadswinesGeocoderAddressViewInterface mInterface) {
+        this.mInterface = mInterface;
+    }
 
     public DeadswinesGeocoderAddressView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -48,16 +70,6 @@ public class DeadswinesGeocoderAddressView extends FrameLayout implements AutoCo
         inflate();
     }
 
-    View viewBase;
-    ImageView viewBackArrow;
-    ImageView viewVoiceInput;
-    AutoCompleteTextView viewAutoComplete;
-
-    AutoCompleteQuerrer mAutoCompleteQuerrer;
-
-
-    boolean isTextEntered;
-    boolean isVoiceInputInProgress;
 
     private void inflate() {
 
@@ -68,7 +80,7 @@ public class DeadswinesGeocoderAddressView extends FrameLayout implements AutoCo
 
         viewAutoComplete = (AutoCompleteTextView) viewBase.findViewById(R.id.address_autocomplete);
 
-        viewAutoComplete.setOnDismissListener(this);
+        viewAutoComplete.setOnDismissListener(this); //FIXME
         viewAutoComplete.addTextChangedListener(this);
         viewBase.setOnFocusChangeListener(this);
 
@@ -85,6 +97,7 @@ public class DeadswinesGeocoderAddressView extends FrameLayout implements AutoCo
 
     private void init() {
         mAutoCompleteQuerrer = new AutoCompleteQuerrer(viewAutoComplete);
+        mAutoCompleteQuerrer.setInterface(this);
     }
 
 
@@ -180,5 +193,23 @@ public class DeadswinesGeocoderAddressView extends FrameLayout implements AutoCo
         } else {
             startVoiceInput();
         }
+    }
+
+
+    @Override
+    public void onPlaceClicked(String text) {
+
+    }
+
+    @Override
+    public void onPlaceFetched(Place place) {
+        if (mInterface != null)
+            mInterface.onPlaceFetcht(place);
+    }
+
+    @Override
+    public void onPlaceFetchedFailed() {
+        viewAutoComplete.setText("Ups! Something went wrong :(");
+
     }
 }

@@ -44,6 +44,10 @@ public class DeadswineFabMorphLayoutAdvanced extends FrameLayout implements View
     boolean isExpanded;
     boolean isInProgress;
 
+
+    ImageButton fab;
+    View vTarget;
+
     PointF origin;
     PointF target;
 
@@ -74,11 +78,16 @@ public class DeadswineFabMorphLayoutAdvanced extends FrameLayout implements View
 
     public interface DeadswineFabMorphInterface {
 
-        public void onDeadswineMorphInitialized();
+         void onDeadswineMorphInitialized();
+         void onDeadswineMorphExpanded(Boolean start);
+         void onDeadswineMorphColapsed(Boolean start);
 
 
     }
 
+    public View getTarget() {
+        return vTarget;
+    }
 
     /**
      * Constructor allowing for reading custom xml attributes
@@ -100,9 +109,6 @@ public class DeadswineFabMorphLayoutAdvanced extends FrameLayout implements View
         inflate();
     }
 
-
-    ImageButton fab;
-    View vTarget;
 
     private void inflate() {
         //  View view = LayoutInflater.from(getContext()).inflate(R.layout.fab_morph_layout, this, true);
@@ -212,7 +218,7 @@ public class DeadswineFabMorphLayoutAdvanced extends FrameLayout implements View
     }
 
 
-    private void expand() {
+    public void expand() {
         log("EXPANDING FAB");
 
         isInProgress = true;
@@ -250,6 +256,11 @@ public class DeadswineFabMorphLayoutAdvanced extends FrameLayout implements View
                 vTarget.clearAnimation();
 
                 isInProgress = false;
+
+
+                if(mInterface!=null){
+                    mInterface.onDeadswineMorphExpanded(false);
+                }
             }
         });
 
@@ -257,7 +268,7 @@ public class DeadswineFabMorphLayoutAdvanced extends FrameLayout implements View
 
     }
 
-    private void collapse() {
+    public void collapse() {
         log("COLLAPSING FAB");
 
         isInProgress = true;
@@ -319,6 +330,14 @@ public class DeadswineFabMorphLayoutAdvanced extends FrameLayout implements View
         anim.setDuration(animDuration);
         anim.addListener(new AnimatorListenerAdapter() {
 
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+
+                if(mInterface!=null){
+                    mInterface.onDeadswineMorphColapsed(true);
+                }
+            }
 
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -348,6 +367,10 @@ public class DeadswineFabMorphLayoutAdvanced extends FrameLayout implements View
             arcAnimForward.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
+
+                    if(mInterface!=null){
+                        mInterface.onDeadswineMorphExpanded(true);
+                    }
 
                     transition.startTransition(animDuration);
 
@@ -492,12 +515,19 @@ public class DeadswineFabMorphLayoutAdvanced extends FrameLayout implements View
                         fab.clearAnimation();
                         fab.setImageResource(R.drawable.ic_search_24dp);
 
+                        if(mInterface!=null){
+                            mInterface.onDeadswineMorphColapsed(false);
+                        }
+
                     } else {
                         isExpanded = true;
 
                         expandTarget();
 
                     }
+
+
+
                 }
 
                 @Override

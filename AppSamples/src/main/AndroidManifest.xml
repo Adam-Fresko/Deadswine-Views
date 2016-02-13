@@ -18,7 +18,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ActivityMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,11 +26,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".FabMorphActivity"/>
+        <activity android:name=".FabMorphActivity"
+            android:label="Sample: Fab Morph"
+            />
 
-        <activity android:name=".FabMorphGeocoderActivity"/>
+        <activity android:name=".FabMorphGeocoderActivity"
+            android:label="Sample: Fab Morph Advanced + geocoder"
+            />
 
-
+        <activity android:name=".SampleSlidingPanel.SlidingPanelActivity"
+            android:label="Sample: Sliding Panel"
+            />
 
 
     </application>

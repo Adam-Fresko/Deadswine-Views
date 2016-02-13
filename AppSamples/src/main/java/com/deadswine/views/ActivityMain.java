@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+import com.deadswine.views.SampleSlidingPanel.SlidingPanelActivity;
+
+public class ActivityMain extends AppCompatActivity {
 
 
     Button btnFabMorph;
     Button btnFabMorphGeocoder;
+    Button btnSlidingPanel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,11 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
         btnFabMorph = (Button) findViewById(R.id.btnFabMorph);
         btnFabMorphGeocoder = (Button) findViewById(R.id.btnFabMorphGeocoder);
+        btnSlidingPanel= (Button) findViewById(R.id.btnSlidingPanel);
 
         btnFabMorph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,FabMorphActivity.class);
+                Intent intent = new Intent(ActivityMain.this, FabMorphActivity.class);
 
                 startActivity(intent);
             }
@@ -33,10 +38,22 @@ public class MainActivity extends AppCompatActivity {
         btnFabMorphGeocoder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,FabMorphGeocoderActivity.class);
+                Intent intent = new Intent(ActivityMain.this, FabMorphGeocoderActivity.class);
 
                 startActivity(intent);
             }
         });
+
+        btnSlidingPanel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityMain.this, SlidingPanelActivity.class);
+
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 }

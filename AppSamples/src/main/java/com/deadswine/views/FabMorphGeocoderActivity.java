@@ -21,8 +21,6 @@ public class FabMorphGeocoderActivity extends AppCompatActivity implements Deads
     DeadswinesGeocoderAddressView deadswinesGeocoderAddressView;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +31,9 @@ public class FabMorphGeocoderActivity extends AppCompatActivity implements Deads
         deadswineFabMorphLayoutAdvanced.setInterface(this);
     }
 
-
     private final String TAG = this.getClass().getSimpleName();
 
-
     boolean isDebug = true;
-
     public void log(String log) {
         Log.d(TAG, log);
     }
@@ -54,5 +49,15 @@ public class FabMorphGeocoderActivity extends AppCompatActivity implements Deads
                 deadswineFabMorphLayoutAdvanced.toggle();
             }
         });
+    }
+
+    @Override
+    public void onDeadswineMorphExpanded(Boolean start) {
+
+    }
+
+    @Override
+    public void onDeadswineMorphColapsed(Boolean start) {
+
     }
 }

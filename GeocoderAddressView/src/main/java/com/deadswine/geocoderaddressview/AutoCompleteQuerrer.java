@@ -25,7 +25,6 @@ import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -56,10 +55,26 @@ public class AutoCompleteQuerrer implements GoogleApiClient.OnConnectionFailedLi
     private static final LatLngBounds BOUNDS_GREATER_SYDNEY = new LatLngBounds(
             new LatLng(-34.041458, 150.790100), new LatLng(-33.682247, 151.383362));
 
-//
-
     AutoCompleteTextView autoTv;
     Context mContext;
+
+    AutoCompleteQuerrerInterface mInterface;
+
+    public interface AutoCompleteQuerrerInterface {
+        /**
+         * When this gets called you should show progress that place is being fetched
+         * @param text
+         */
+        void onPlaceClicked(String text);
+
+        void onPlaceFetched(Place place);
+        void onPlaceFetchedFailed();
+
+    }
+
+    public void setInterface(AutoCompleteQuerrerInterface mInterface) {
+        this.mInterface = mInterface;
+    }
 
     public AutoCompleteQuerrer(AutoCompleteTextView tv) {
 
@@ -191,8 +206,9 @@ public class AutoCompleteQuerrer implements GoogleApiClient.OnConnectionFailedLi
               */
         final AutocompletePrediction item = mAdapter.getItem(position);
         final String placeId = item.getPlaceId();
-        final CharSequence primaryText = item.getPrimaryText(null);
 
+        final CharSequence primaryText = item.getPrimaryText(null);
+        currentPlaceId = placeId;
         Log.i(TAG, "Autocomplete item selected: " + primaryText);
 
 
@@ -209,12 +225,17 @@ public class AutoCompleteQuerrer implements GoogleApiClient.OnConnectionFailedLi
         Log.i(TAG, "Called getPlaceById to get Place details for " + placeId);
     }
 
+    String currentPlaceId;
+
     @Override
     public void onResult(PlaceBuffer places) {
         if (!places.getStatus().isSuccess()) {
             // Request did not complete successfully
             Log.e(TAG, "Place query did not complete. Error: " + places.getStatus().toString());
             places.release();
+
+                if (mInterface != null)
+                    mInterface.onPlaceFetchedFailed();
             return;
         }
         // Get the Place object from the buffer.
@@ -223,6 +244,12 @@ public class AutoCompleteQuerrer implements GoogleApiClient.OnConnectionFailedLi
         Log.i(TAG, "Place details received: " + place.getName());
         Log.i(TAG, "Place details received: " + place.getLatLng());
         Log.i(TAG, "Place details received: " + place.getAddress());
+
+        if (place.getId().equals(currentPlaceId))
+            if (mInterface != null)
+                mInterface.onPlaceFetched(place);
+
+
         places.release();
     }
 }
