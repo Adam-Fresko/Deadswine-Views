@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.deadswine.views.slidingpanel.DeadswinesSlidingPanel xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+      android:id="@+id/panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:slidingPanelLayoutResource="@layout/sliding_child" />
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,33 +31,33 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="lock top"
+            android:text="lock expand"
             android:layout_gravity="center"
             />
 
         <Button
-            android:id="@+id/btn1"
+            android:id="@+id/btnTop1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
             android:text="step 1" />
 
         <Button
-            android:id="@+id/btn2"
+            android:id="@+id/btnTop2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text=" step 2" />
 
         <Button
-            android:id="@+id/btn3"
+            android:id="@+id/btnTop3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text=" step 3" />
 
         <Button
-            android:id="@+id/btn4"
+            android:id="@+id/btnTop4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -76,34 +75,34 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="lock bottom"
+                android:text="lock collapse"
                 android:layout_gravity="center"
                 />
 
 
             <Button
-                android:id="@+id/btn11"
+                android:id="@+id/btnBottom1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"
                 android:text=" step 1" />
 
             <Button
-                android:id="@+id/btn12"
+                android:id="@+id/btnBottom2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text=" step 2" />
 
             <Button
-                android:id="@+id/btn13"
+                android:id="@+id/btnBottom3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text=" step 3" />
 
             <Button
-                android:id="@+id/btn14"
+                android:id="@+id/btnBottom4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -119,32 +118,35 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btn21"
+                android:id="@+id/btnExpand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"
-                android:text="expand top" />
+                android:text="expand" />
 
             <Button
-                android:id="@+id/btn22"
+                android:id="@+id/btnCollapse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="expand bottom" />
+                android:text="collapse" />
 
            <Switch
+               android:id="@+id/checkboxSwiping"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="swyping  "
+               android:text="swiping  "
                />
 
             <Switch
+                android:id="@+id/checkboxShowing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="show       "
                 />
 
             <Switch
+                android:id="@+id/checkboxClicking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="clicking   "
